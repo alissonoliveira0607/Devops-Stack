@@ -1,0 +1,31 @@
+---
+
+- name: Configuração do DB Server
+  hosts: db01
+  #Definindo o usuário que executará os comandos
+  
+  user: ansible
+  become: yes
+  
+  vars_files:
+    - "vars/main.yaml"
+  
+  vars:
+    - dbname: "db01"
+    - dbusername: "root"
+    - dbpassword: "devops"
+      
+  
+  tasks:
+    - name: Configurar hosts do lab
+      #Adicionando linhas em um arquivo de configuração
+      lineinfile: line "{{item}}" path=/etc/hosts
+      with_items: 
+        - 192.168.1.2 control-node
+        - 192.168.1.3 app01
+        - 192.168.1.4 db01
+  roles:
+    - configuracao-default-so
+    - role: geerlingguy.mysql        
+
+
