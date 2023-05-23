@@ -1,0 +1,7 @@
+.vagrant
+.log
+.logs
+.vagrant.d
+keys
+.pub
+id_rsa
